@@ -17,9 +17,9 @@ export default function Header({name}) {
             Blog
         </Link>
       </span>
-          {/*<Link href="/projects">*/}
-          {/*  <a className="hover:bg-gray-400 rounded py-1 px-2">Projects</a>*/}
-          {/*</Link>*/}
+          {/*<span className="hover:bg-gray-400 rounded py-1 px-2"><Link href="/projects">*/}
+          {/*  Projects*/}
+          {/*</Link></span>*/}
         </nav>
         <hr className="mt-4 opacity-20"/>
       </header>
