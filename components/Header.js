@@ -7,10 +7,10 @@ export default function Header({ name }) {
         <div className="font-bold font-mono mr-6"><a href="/">LOBAN</a></div>
         <nav className="">
           <Link href="/">
-            <a className="hover:bg-gray-400 rounded py-1 px-2">About</a>
+            <span className="hover:bg-gray-400 rounded py-1 px-2">About</span>
           </Link>
           <Link href="/blog">
-            <a className="hover:bg-gray-400 rounded py-1 px-2">Blog</a>
+            <span className="hover:bg-gray-400 rounded py-1 px-2">Blog</span>
           </Link>
           {/*<Link href="/projects">*/}
           {/*  <a className="hover:bg-gray-400 rounded py-1 px-2">Projects</a>*/}
