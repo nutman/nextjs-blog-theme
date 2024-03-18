@@ -21,7 +21,7 @@ import { FiBriefcase } from '@react-icons/all-files/fi/FiBriefcase';
 
 import Avatar from '../shared/Avatar';
 import { Profile } from '../types/Profile';
-import { socialLinks } from './socialLinks';
+import { socialLinks } from '../utils/socialLinks';
 
 
 
