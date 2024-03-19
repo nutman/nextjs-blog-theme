@@ -118,7 +118,7 @@ export default function Index({posts, globalData}) {
                        width={300}
                        height={300}
                        alt="Picture of the author"
-                       className="w-12 h-12 rounded-full block mx-auto mb-4 bg-gradient-conic from-gradient-3 to-gradient-4"/>
+                       className="rounded-full block mx-auto mb-4"/>
               </div>
               <div className="flex flex-col justify-center items-center sm:items-start">
                 {/*<h1 className="text-3xl lg:text-5xl text-center mb-12">*/}
