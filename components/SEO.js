@@ -5,6 +5,7 @@ export default function SEO({ title, description }) {
     <Head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-WY88M20WM5"></script>
       <script>
+        // eslint-disable
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
