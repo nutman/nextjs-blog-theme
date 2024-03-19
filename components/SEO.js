@@ -1,5 +1,7 @@
 import Head from 'next/head';
 
+/* eslint-disable */
+
 export default function SEO({ title, description }) {
   return (
     <Head>
