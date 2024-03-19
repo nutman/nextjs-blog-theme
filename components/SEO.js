@@ -4,8 +4,8 @@ import Script from "next/script";
 export default function SEO({ title, description }) {
   return (
     <Head>
-      <Script strategy="lazyOnload" async src="https://www.googletagmanager.com/gtag/js?id=G-WY88M20WM5"></Script>
-      <Script strategy="lazyOnload">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WY88M20WM5"></script>
+      <script>
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments)}
@@ -14,7 +14,7 @@ export default function SEO({ title, description }) {
           gtag('config', 'G-WY88M20WM5');
       `}
 
-      </Script>
+      </script>
 
       <title>{title}</title>
       <meta name="description" content={description} />
