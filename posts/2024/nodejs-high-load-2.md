@@ -38,32 +38,13 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Microservice is running on port ${port}`);
 });
-We
-can
-create as many
-microservices as needed, and
-each
-one
-will
-be
-responsible
-for specific tasks.Now
-that
-we
-have
-the
-tools, who
-will
-use
-them ? Our construction
-worker, also
-known as the
-server, will
-use
-them:
+```
 
+We can create as many microservices as needed, and each one will be responsible for specific tasks.Now that we have the tools, who will use them ? Our construction worker, also known as the server, will use them:
+
+```typescript
 // Import required modules
-  const express = require('express');
+const express = require('express');
 const axios = require('axios');
 
 // Create an instance of Express (like we did it before)
@@ -392,61 +373,66 @@ security standards.
 And some code examples.
 
 Authorization:
+
 ```typescript
 import jwt from 'jsonwebtoken';
 
 const secret = "secret";
 
 function authorize(req: any, res: any, next: any) {
-const token = req.headers['authorization'];
-if (!token) {
-return res.status(401).json({ message: 'Access denied. No token provided.' });
-}
-jwt.verify(token, secret, (err: any, decoded: any) => {
-if (err) {
-return res.status(403).json({ message: 'Invalid token.' });
-}
-req.user = decoded;
-next();
-});
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(401).json({message: 'Access denied. No token provided.'});
+  }
+  jwt.verify(token, secret, (err: any, decoded: any) => {
+    if (err) {
+      return res.status(403).json({message: 'Invalid token.'});
+    }
+    req.user = decoded;
+    next();
+  });
 }
 
 export default authorize;
 ```
+
 Validation:
+
 ```typescript
 import { Request, Response, NextFunction } from 'express';
 import { validationResult, Result } from 'express-validator';
 
 function validateInputs(req: Request, res: Response, next: NextFunction): void {
-const errors: Result = validationResult(req);
-if (!errors.isEmpty()) {
-return res.status(400).json({ errors: errors.array() });
-}
-next();
+  const errors: Result = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array()});
+  }
+  next();
 }
 
 export default validateInputs;
 ```
+
 Encryption:
+
 ```typescript
 const crypto = require('crypto');
 const encryptionKey = 'encryptionKey';
 
 // Function to encrypt data
 function encryptData(data) {
-const cipher = crypto.createCipher('aes-256-cbc', encryptionKey);
-let encryptedData = cipher.update(data, 'utf8', 'hex');
-encryptedData += cipher.final('hex');
-return encryptedData;
+  const cipher = crypto.createCipher('aes-256-cbc', encryptionKey);
+  let encryptedData = cipher.update(data, 'utf8', 'hex');
+  encryptedData += cipher.final('hex');
+  return encryptedData;
 }
 
 // Function to decrypt data
 function decryptData(encryptedData) {
-const decipher = crypto.createDecipher('aes-256-cbc', encryptionKey);
-let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
-decryptedData += decipher.final('utf8');
-return decryptedData;
+  const decipher = crypto.createDecipher('aes-256-cbc', encryptionKey);
+  let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
+  decryptedData += decipher.final('utf8');
+  return decryptedData;
 }
 
 // Example usage
@@ -458,6 +444,7 @@ const decrypted = decryptData(encrypted);
 // Check result of encryption
 console.log('Decrypted:', decrypted);
 ```
+
 Conclusion:
 
 Here is an overview of the technical aspects related to Node.js. When discussing performance and efficiency, it can be
