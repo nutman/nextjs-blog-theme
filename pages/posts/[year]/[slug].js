@@ -28,7 +28,7 @@ import {getArticles, getPostsByYears, getYearDirectory, POSTS_PATH,getPostBySlug
 // to handle import statements. Instead, you must include components in scope
 // here.
 const components = {
-  a: CustomLink,
+  Link: CustomLink,
   // It also works with dynamically-imported components, which is especially
   // useful for conditionally loading components for certain routes.
   // See the notes in README.md for more details.
