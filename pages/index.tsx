@@ -44,6 +44,8 @@ export default function Index({posts, globalData}) {
       { name: 'Full Stack' },
       { name: 'JavaScript' },
       { name: 'React' },
+      { name: 'Angular' },
+      { name: 'Node.js' },
     ],
     socialLinks,
   };
