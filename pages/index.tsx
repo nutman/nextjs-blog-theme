@@ -136,6 +136,9 @@ export default function Index({posts, globalData}) {
             </div>
 
             <p className="font-light">{globalData.blogDescription}</p>
+            {globalData.description.map(function(str, i){
+              return <p className="font-light mt-3" key={i}>{str}</p>
+            })}
             <p className="text-2xl dark:text-white text-center">
             </p>
           </div>
