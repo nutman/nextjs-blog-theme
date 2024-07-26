@@ -6,11 +6,12 @@ class MyDocument extends Document {
     return (
       <Html lang="en" className="theme-compiled">
         <Head>
-          <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon_package_v0.16/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_package_v0.16/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_package_v0.16/favicon-16x16.png" />
-          <link rel="manifest" href="/assets/favicon_package_v0.16/site.webmanifest" />
-          <link rel="mask-icon" href="/assets/favicon_package_v0.16/safari-pinned-tab.svg" color="#5bbad5" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon_package/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_package/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_package/favicon-16x16.png?" />
+          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+          <link rel="manifest" href="/assets/favicon_package/site.webmanifest" />
+          <link rel="mask-icon" href="/assets/favicon_package/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
         </Head>
