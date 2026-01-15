@@ -1,4 +1,14 @@
-export default function ArrowIcon({ className, color = 'text-primary' }) {
+import React from 'react';
+
+interface ArrowIconProps {
+  className?: string;
+  color?: string;
+}
+
+const ArrowIcon: React.FC<ArrowIconProps> = ({ 
+  className = '', 
+  color = 'text-primary' 
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,6 +17,7 @@ export default function ArrowIcon({ className, color = 'text-primary' }) {
       fill="none"
       viewBox="0 0 24 24"
       className={className}
+      aria-hidden="true"
     >
       <path
         className={`stroke-current ${color}`}
@@ -14,7 +25,9 @@ export default function ArrowIcon({ className, color = 'text-primary' }) {
         strokeLinejoin="round"
         strokeWidth="2"
         d="M5 12h14M12 19l7-7-7-7"
-      ></path>
+      />
     </svg>
   );
-}
+};
+
+export default ArrowIcon;

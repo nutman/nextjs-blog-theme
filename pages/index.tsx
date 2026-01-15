@@ -1,30 +1,43 @@
-import Link from 'next/link';
+import React from 'react';
+import { GetStaticProps } from 'next';
+import Image from 'next/image';
+import { FiBriefcase } from '@react-icons/all-files/fi/FiBriefcase';
 import { getPosts } from '../utils/mdx-utils';
-
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout, { GradientBackground } from '../components/Layout';
-import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
-import Image from 'next/image';
-import profilePic from '../assets/image.jpg'
-
-// import type { Profile as ProfileType } from '../types/Profile';
-// import Avatar from '../shared/Avatar';
+import profilePic from '../assets/Volodymyr.png';
 import Location from '../shared/Location';
 import H, { hLevel } from '../shared/H';
 import Tags from '../shared/Tags';
 import SocialLinks from '../shared/SocialLinks';
-import Greeting from '../shared/Greeting';
-import { FiBriefcase } from '@react-icons/all-files/fi/FiBriefcase';
-
 import Avatar from '../shared/Avatar';
 import { Profile } from '../types/Profile';
 import { socialLinks } from '../utils/socialLinks';
 
+interface Post {
+  filePath: string;
+  data: {
+    title: string;
+    description?: string;
+    date?: string;
+  };
+}
 
-export default function Index({posts, globalData}) {
+interface IndexProps {
+  posts: Post[];
+  globalData: {
+    name: string;
+    blogTitle: string;
+    blogDescription: string;
+    footerText: string;
+    description: string[];
+  };
+}
+
+const Index: React.FC<IndexProps> = ({ posts, globalData }) => {
 
   const profile: Profile = {
     firstName: `${process.env.NEXT_PUBLIC_FIRST_NAME}`,
@@ -33,7 +46,7 @@ export default function Index({posts, globalData}) {
     summary: [],
 
     avatar: {
-      srcPath: '/assets/image.jpg',
+      srcPath: '/assets/Volodymyr.png',
       caption: `${process.env.NEXT_PUBLIC_FIRST_NAME} ${process.env.NEXT_PUBLIC_LAST_NAME}`
     },
     location: {
@@ -208,9 +221,16 @@ export default function Index({posts, globalData}) {
   );
 }
 
-export function getStaticProps() {
+export const getStaticProps: GetStaticProps = () => {
   const posts = getPosts();
   const globalData = getGlobalData();
 
-  return {props: {posts, globalData}};
-}
+  return {
+    props: {
+      posts,
+      globalData,
+    },
+  };
+};
+
+export default Index;

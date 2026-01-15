@@ -8,7 +8,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon_package/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_package/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_package/favicon-16x16.png?" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_package/favicon-16x16.png" />
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
           <link rel="manifest" href="/assets/favicon_package/site.webmanifest" />
           <link rel="mask-icon" href="/assets/favicon_package/safari-pinned-tab.svg" color="#5bbad5" />
@@ -16,7 +16,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff" />
         </Head>
         <body
-          className={`antialiased text-lg bg-white dark:bg-gray-900 dark:text-white leading-base`}
+          className="antialiased text-lg bg-white dark:bg-gray-900 dark:text-white leading-base"
         >
           <Main />
           <NextScript />

@@ -1,3 +1,6 @@
+import React from 'react';
+import { useTheme } from '../hooks/useTheme';
+
 const sunIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +9,7 @@ const sunIcon = (
     fill="none"
     viewBox="0 0 25 24"
     className="dark:opacity-50"
+    aria-hidden="true"
   >
     <g
       stroke="#fff"
@@ -35,6 +39,7 @@ const moonIcon = (
     height="20"
     fill="none"
     viewBox="0 0 21 20"
+    aria-hidden="true"
   >
     <path
       stroke="#fff"
@@ -47,16 +52,19 @@ const moonIcon = (
   </svg>
 );
 
-const ThemeSwitcher = () => {
+interface ThemeSwitcherProps {
+  className?: string;
+}
+
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className = '' }) => {
+  const { setTheme } = useTheme();
+
   return (
-    <div className="flex mt-6 bg-white justify-center dark:bg-gray-900 rounded-3xl p-1">
+    <div className={`flex mt-6 bg-white justify-center dark:bg-gray-900 rounded-3xl p-1 ${className}`}>
       <button
         type="button"
         aria-label="Use Dark Mode"
-        onClick={() => {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        }}
+        onClick={() => setTheme('dark')}
         className="flex items-center h-full pr-2 dark:bg-primary rounded-3xl flex justify-center align-center p-2 w-24 h-10 transition"
       >
         {moonIcon}
@@ -65,10 +73,7 @@ const ThemeSwitcher = () => {
       <button
         type="button"
         aria-label="Use Light Mode"
-        onClick={() => {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-        }}
+        onClick={() => setTheme('light')}
         className="flex items-center h-full pr-2 bg-primary dark:bg-transparent rounded-3xl flex justify-center align-center p-2 w-24 h-10 transition"
       >
         {sunIcon}
@@ -77,13 +82,4 @@ const ThemeSwitcher = () => {
   );
 };
 
-export default function Footer({ copyrightText }) {
-  return (
-    <footer className="py-16 flex flex-col items-center">
-      <p className="dark:text-white uppercase mb-3 font-bold opacity-60">
-        {copyrightText}
-      </p>
-      <ThemeSwitcher />
-    </footer>
-  );
-}
+export default ThemeSwitcher;

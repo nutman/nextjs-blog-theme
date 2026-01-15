@@ -1,20 +1,41 @@
-import Layout, {GradientBackground} from "../../components/Layout";
-import SEO from "../../components/SEO";
-import Footer from "../../components/Footer";
-import {getGlobalData} from "../../utils/global-data";
-import Link from "next/link";
-import ArrowIcon from "../../components/ArrowIcon";
-import {getPosts} from "../../utils/mdx-utils";
-import Header from "../../components/Header";
+import React from 'react';
+import { GetStaticProps } from 'next';
+import Layout, { GradientBackground } from '../../components/Layout';
+import SEO from '../../components/SEO';
+import Footer from '../../components/Footer';
+import { getGlobalData } from '../../utils/global-data';
+import Link from 'next/link';
+import ArrowIcon from '../../components/ArrowIcon';
+import { getPosts } from '../../utils/mdx-utils';
+import Header from '../../components/Header';
 
-export default function AboutPage({
-                                    // source,
-                                    frontMatter,
-                                    posts,
-                                    prevPost,
-                                    nextPost,
-                                    globalData,
-                                  }) {
+interface Post {
+  filePath: string;
+  data: {
+    title: string;
+    description?: string;
+    date?: string;
+  };
+}
+
+interface AboutPageProps {
+  frontMatter: {
+    title: string;
+    description: string;
+    name: string;
+  };
+  posts: Post[];
+  globalData: {
+    name: string;
+    footerText: string;
+  };
+}
+
+const AboutPage: React.FC<AboutPageProps> = ({
+  frontMatter,
+  posts,
+  globalData,
+}) => {
   return (
     <Layout>
       <SEO
@@ -30,7 +51,8 @@ export default function AboutPage({
           >
             <Link
               as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-              href={`/posts/[year]/[slug]`}
+              href="/posts/[year]/[slug]"
+              legacyBehavior
             >
               <span className="py-6 lg:py-10 px-6 lg:px-16 block focus:outline-none focus:ring-4">
                 {post.data.date && (
@@ -44,15 +66,14 @@ export default function AboutPage({
                     {post.data.description}
                   </p>
                 )}
-                <ArrowIcon className="mt-4"/>
+                <ArrowIcon className="mt-4" />
               </span>
             </Link>
           </li>
         ))}
       </ul>
 
-
-      <Footer copyrightText={globalData.footerText}/>
+      <Footer copyrightText={globalData.footerText} />
       <GradientBackground
         variant="large"
         className="absolute -top-32 opacity-30 dark:opacity-50"
@@ -62,30 +83,26 @@ export default function AboutPage({
         className="absolute bottom-0 opacity-20 dark:opacity-10"
       />
     </Layout>
-  )
-}
+  );
+};
 
-
-export const getStaticProps = async ({params}) => {
+export const getStaticProps: GetStaticProps = async () => {
   const globalData = getGlobalData();
   const posts = getPosts();
 
-  // const { mdxSource, data } = await getPostBySlug(params.slug);
-  const data = {title: 'About', description: 'Page tells about Volodymyr experience', name: 'Volodymyr'}
-  // const prevPost = getPreviousPostBySlug(params.slug);
-  // const nextPost = getNextPostBySlug(params.slug);
+  const data = {
+    title: 'About',
+    description: 'Page tells about Volodymyr experience',
+    name: 'Volodymyr',
+  };
 
   return {
     props: {
       globalData,
-      // source: mdxSource,
       posts,
-
       frontMatter: data,
-      // prevPost,
-      // nextPost,
     },
   };
 };
 
-
+export default AboutPage;

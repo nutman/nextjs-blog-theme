@@ -1,55 +1,64 @@
-import { getGlobalData } from '../../../utils/global-data';
-// import {
-//   getArticles,
-//   getNextPostBySlug,
-//   getPostBySlug, getPostsByYears,
-//   getPreviousPostBySlug, getYearDirectory,
-//   postFilePaths,
-// } from '../../../utils/mdx-utils';
-
-import { MDXRemote } from 'next-mdx-remote';
+import React from 'react';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Head from 'next/head';
 import Link from 'next/link';
+import { getGlobalData } from '../../../utils/global-data';
 import ArrowIcon from '../../../components/ArrowIcon';
 import CustomLink from '../../../components/CustomLink';
 import Footer from '../../../components/Footer';
 import Header from '../../../components/Header';
 import Layout, { GradientBackground } from '../../../components/Layout';
 import SEO from '../../../components/SEO';
-
-// import fs from 'fs';
-// import path from 'path';
-// import matter from 'gray-matter';
-// import { serialize } from 'next-mdx-remote/serialize';
-import {getArticles, getPostsByYears, getYearDirectory, POSTS_PATH,getPostBySlug} from "../../../utils/mdx-utils";
+import {
+  getArticles,
+  getPostsByYears,
+  getYearDirectory,
+  POSTS_PATH,
+  getPostBySlug,
+} from '../../../utils/mdx-utils';
 
 // Custom components/renderers to pass to MDX.
-// Since the MDX files aren't loaded by webpack, they have no knowledge of how
-// to handle import statements. Instead, you must include components in scope
-// here.
 const components = {
   Link: CustomLink,
-  // It also works with dynamically-imported components, which is especially
-  // useful for conditionally loading components for certain routes.
-  // See the notes in README.md for more details.
   Head,
 };
 
-export default function PostPage({
+interface PostPageProps {
+  source: MDXRemoteSerializeResult;
+  frontMatter: {
+    title: string;
+    description?: string;
+  };
+  prevPost?: {
+    title: string;
+    slug: string;
+  };
+  nextPost?: {
+    title: string;
+    slug: string;
+  };
+  globalData: {
+    name: string;
+    footerText: string;
+  };
+}
+
+const PostPage: React.FC<PostPageProps> = ({
   source,
   frontMatter,
   prevPost,
   nextPost,
   globalData,
-}) {
+}) => {
   return (
     <Layout>
       <SEO
         title={`${frontMatter.title} - ${globalData.name}`}
-        description={frontMatter.description}
+        description={frontMatter.description || ''}
       />
       <Header name={globalData.name} />
-      <div className='px-6 sm:px-12 py-6'>
+      <div className="px-6 sm:px-12 py-6">
         <article className="px-6 md:px-0">
           <header>
             <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">
@@ -66,7 +75,7 @@ export default function PostPage({
           </main>
           <div className="grid md:grid-cols-2 lg:-mx-24 mt-12">
             {prevPost && (
-              <Link href={`/posts/${prevPost.slug}`}>
+              <Link href={`/posts/${prevPost.slug}`} legacyBehavior>
                 <span className="py-8 px-10 text-center md:text-right first:rounded-t-lg md:first:rounded-tr-none md:first:rounded-l-lg last:rounded-r-lg first last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-t md:border-r-0 md:last:border-r md:last:rounded-r-none flex flex-col">
                   <p className="uppercase text-gray-500 mb-4 dark:text-white dark:opacity-60">
                     Previous
@@ -79,7 +88,7 @@ export default function PostPage({
               </Link>
             )}
             {nextPost && (
-              <Link href={`/posts/${nextPost.slug}`}>
+              <Link href={`/posts/${nextPost.slug}`} legacyBehavior>
                 <span className="py-8 px-10 text-center md:text-left md:first:rounded-t-lg last:rounded-b-lg first:rounded-l-lg md:last:rounded-bl-none md:last:rounded-r-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-t-0 first:border-t first:rounded-t-lg md:border-t border-b-0 last:border-b flex flex-col">
                   <p className="uppercase text-gray-500 mb-4 dark:text-white dark:opacity-60">
                     Next
@@ -105,11 +114,11 @@ export default function PostPage({
       />
     </Layout>
   );
-}
+};
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const globalData = getGlobalData();
-  const { year, slug } = params;
+  const { year, slug } = params as { year: string; slug: string };
   const { mdxSource, data: frontMatter } = await getPostBySlug(year, slug);
 
   return {
@@ -121,15 +130,14 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-export const getStaticPaths = async () => {
-
+export const getStaticPaths: GetStaticPaths = async () => {
   const articlesDirectory = POSTS_PATH;
   const years = getPostsByYears(articlesDirectory);
 
-  const paths = years.flatMap(year => {
+  const paths = years.flatMap((year) => {
     const yearDirectory = getYearDirectory(articlesDirectory, year);
     const articles = getArticles(yearDirectory);
-    return articles.map(article => ({
+    return articles.map((article) => ({
       params: {
         year,
         slug: article.replace(/\.md$/, ''),
@@ -141,5 +149,6 @@ export const getStaticPaths = async () => {
     paths,
     fallback: false,
   };
-
 };
+
+export default PostPage;
