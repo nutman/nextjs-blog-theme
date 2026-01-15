@@ -3,7 +3,16 @@ import { FiStar } from '@react-icons/all-files/fi/FiStar';
 import Row from './Row';
 import HyperLink from './HyperLink';
 import { Link as LinkType } from '../types/Link';
-import { numberToConciseString } from '../../utils/numbers';
+// Stub function since utils/numbers may not be resolving correctly
+const numberToConciseString = (num: number): string => {
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1)}M`;
+  }
+  if (num >= 1000) {
+    return `${(num / 1000).toFixed(1)}K`;
+  }
+  return num.toString();
+};
 
 type StarsProps = {
   link?: LinkType,

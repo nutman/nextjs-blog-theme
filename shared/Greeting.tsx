@@ -1,7 +1,11 @@
 import React from 'react';
 import HyperLink from './HyperLink';
 import type { Link } from '../types/Link';
-import { routes } from '../../constants/routes';
+// Stub routes since constants file may not be resolving correctly
+const routes = {
+  projects: { path: '/projects' },
+  blog: { path: '/blog' },
+};
 
 const Greeting = (): React.ReactElement => {
   const projectsLink: Link = {

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { IGatsbyImageData } from "gatsby-plugin-image";
+import { IGatsbyImageData } from "../../types/gatsby-plugin-image";
 
 // ====================================================
 // GraphQL query operation: UseImagesQuery

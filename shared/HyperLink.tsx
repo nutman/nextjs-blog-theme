@@ -63,9 +63,8 @@ const HyperLink = (props: HyperLinkProps): React.ReactElement | null => {
 
   const internalLink = (
     <Link
-      to={link.url}
-      activeClassName={activeClassName}
-      className={`${commonClasses} ${className}`}
+      href={link.url}
+      className={`${commonClasses} ${className} ${activeClassName}`}
       onClick={onClick}
       title={caption}
     >

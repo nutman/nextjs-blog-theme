@@ -1,13 +1,13 @@
 import React from 'react';
-import { useLocation } from '@gatsbyjs/reach-router';
-import { Helmet } from 'react-helmet';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
-import {
-  siteURL,
-  windowNamePrefix,
-  windowNameSeparator,
-  twitterUser, siteImage,
-} from '../../constants/siteMeta';
+// Default constants (can be moved to env variables or config)
+const siteURL = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+const windowNamePrefix = process.env.NEXT_PUBLIC_SITE_NAME || 'Blog';
+const windowNameSeparator = '|';
+const twitterUser = process.env.NEXT_PUBLIC_TWITTER_USER || '';
+const siteImage = '/assets/default-image.jpg';
 
 type TitleMode = 'prefix' | 'suffix';
 
@@ -27,13 +27,11 @@ type SEOProps = {
   image?: string,
   twitterUsername?: string,
   // No trailing slash allowed!
-  // @see: https://www.gatsbyjs.com/docs/add-seo-component/
   baseURL?: string,
   titleMode?: TitleMode,
   type?: ogType,
 };
 
-// @see: https://www.gatsbyjs.com/docs/add-seo-component/
 const SEO = (props: SEOProps): React.ReactElement => {
   const {
     title,
@@ -45,7 +43,8 @@ const SEO = (props: SEOProps): React.ReactElement => {
     type = ogTypeWebsite,
   } = props;
 
-  const { pathname } = useLocation();
+  const router = useRouter();
+  const pathname = router.pathname;
 
   const extendedTitle = titleMode === titleModePrefix
     ? `${windowNamePrefix} ${windowNameSeparator} ${title}`
@@ -57,7 +56,8 @@ const SEO = (props: SEOProps): React.ReactElement => {
 
   // @see: https://ogp.me/
   return (
-    <Helmet title={extendedTitle}>
+    <Head>
+      <title>{extendedTitle}</title>
       <meta name="description" content={description} />
       <meta name="image" content={bannerURL} />
 
@@ -73,7 +73,7 @@ const SEO = (props: SEOProps): React.ReactElement => {
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={bannerURL} />
       <meta name="twitter:url" content={pageURL} />
-    </Helmet>
+    </Head>
   );
 };
 

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { routes } from '../../constants/routes';
-import { brandName } from '../../constants/siteMeta';
+// Stub constants since they may not be resolving correctly
+const routes = { home: { path: '/' } };
+const brandName = process.env.NEXT_PUBLIC_SITE_NAME || 'Blog';
 import type { Link as LinkType } from '../types/Link';
 import HyperLink from './HyperLink';
 

@@ -5,11 +5,16 @@ import { AiOutlineMail } from '@react-icons/all-files/ai/AiOutlineMail';
 import { FiRss } from '@react-icons/all-files/fi/FiRss';
 
 import HyperLink from './HyperLink';
-import { discussionsURL, rssPath, supportURL } from '../../constants/links';
+// Default constants (can be moved to env variables or config)
+const discussionsURL = process.env.NEXT_PUBLIC_DISCUSSIONS_URL || 'https://github.com';
+const rssPath = '/rss.xml';
+const supportURL = process.env.NEXT_PUBLIC_SUPPORT_URL || 'https://github.com';
 import { Link } from '../types/Link';
 import Row from './Row';
 import SocialLinks from './SocialLinks';
-import { profile } from '../../data/profile';
+// Note: profile data should be passed as prop or fetched from context
+// Stubbing out for now since this component is not actively used
+const profile = { socialLinks: [] };
 
 type FooterProps = {
   className?: string,

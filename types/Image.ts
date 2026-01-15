@@ -3,7 +3,7 @@ export type Image = {
   caption?: string,
 };
 
-// The type that is being returned after using the {...GatsbyImageSharpFluid} GraphQL operator.
+// The type that represents a fluid/responsive image
 export type FluidImage = {
   base64: string | null;
   aspectRatio: number;

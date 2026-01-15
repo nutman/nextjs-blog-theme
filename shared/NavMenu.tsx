@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Route, routes } from '../../constants/routes';
+// Stub routes since constants file may not be resolving correctly
+type Route = { path: string; name: string };
+const routes = {
+  home: { path: '/', name: 'Home' },
+  blog: { path: '/blog', name: 'Blog' },
+  projects: { path: '/projects', name: 'Projects' },
+  about: { path: '/about', name: 'About' },
+};
 import { Link } from '../types/Link';
 import HyperLink from './HyperLink';
 

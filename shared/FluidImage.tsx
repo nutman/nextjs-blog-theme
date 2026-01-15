@@ -1,31 +1,34 @@
-
-import { Image } from '../types/Image';
+import React from 'react';
+import Image from 'next/image';
+import type { Image as ImageType } from '../types/Image';
 import { useFluidCover } from '../hooks/useFluidCover';
 
 type FluidImageProps = {
-  image?: Image | null | undefined,
-  fluidImage?: Image | null | undefined,
+  image?: ImageType | null | undefined,
+  fluidImage?: ImageType | null | undefined,
   className?: string,
 };
 
 const FluidImage = (props: FluidImageProps): React.ReactElement | null => {
   const { image, fluidImage: fluidImageProvided, className = '' } = props;
 
-  const fluidImageFetched = useFluidCover({ imagePath: image?.srcPath });
-  const fluidImage = fluidImageProvided || fluidImageFetched;
+  // Use provided fluidImage or fallback to regular image
+  const displayImage = fluidImageProvided || image;
 
-  if (!fluidImage) {
+  if (!displayImage?.srcPath) {
     // @TODO: Consider to return an image placeholder.
     return null;
   }
 
   return (
     <Image
-      image={fluidImage}
-      style={{ height: '100%' }}
+      src={displayImage.srcPath}
+      width={800}
+      height={600}
       alt={image?.caption || ''}
       title={image?.caption || ''}
       className={className}
+      style={{ height: '100%', width: '100%', objectFit: 'cover' }}
     />
   );
 };

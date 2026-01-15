@@ -1,5 +1,6 @@
+import React from 'react';
 import Image from "next/image";
-import {Image as ImageType} from 'types/Image'
+import { Image as ImageType } from '../types/Image';
 
 type AvatarProps = {
   avatar: ImageType,
@@ -8,6 +9,10 @@ type AvatarProps = {
 
 const Avatar = (props: AvatarProps): React.ReactElement => {
   const { avatar, className } = props;
+
+  if (!avatar?.srcPath) {
+    return <div className={className || ''} />;
+  }
 
   /**
    * ToDo: add Fluid image functionality
@@ -18,9 +23,8 @@ const Avatar = (props: AvatarProps): React.ReactElement => {
       <Image src={avatar.srcPath}
              width={300}
              height={300}
-             alt={avatar.caption}
+             alt={avatar.caption || ''}
              className="w-12 h-12 rounded-full block mx-auto mb-4 bg-gradient-conic from-gradient-3 to-gradient-4"/>
-
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { IGatsbyImageData } from 'gatsby-plugin-image';
+import type { IGatsbyImageData } from '../types/gatsby-plugin-image';
 import { useFluidCovers } from './useFluidCovers';
 import {
   UseImagesQuery_allFile_nodes,
